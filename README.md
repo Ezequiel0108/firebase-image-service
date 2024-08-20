@@ -54,22 +54,23 @@ This repository contains a Laravel microservice designed to interact with Fireba
 
 ### Configuration
 
-Update your `.env` file with the Firebase configuration settings:
+Update your `.env` file with the Firebase configuration settings. Example:
 
 ```env
 FIREBASE_TYPE=service_account
-FIREBASE_PROJECT_ID=your-project-id
-FIREBASE_PRIVATE_KEY_ID=your-private-key-id
-FIREBASE_PRIVATE_KEY="your-private-key"
-FIREBASE_CLIENT_EMAIL=your-client-email
-FIREBASE_CLIENT_ID=your-client-id
+FIREBASE_PROJECT_ID=example-project-1234
+FIREBASE_PRIVATE_KEY_ID=abc1234567890def1234567890abcde123456789
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\U1yG+\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xyz12@example-project-1234.iam.gserviceaccount.com
+FIREBASE_CLIENT_ID=987654321098765432109
 FIREBASE_AUTH_URI=https://accounts.google.com/o/oauth2/auth
 FIREBASE_TOKEN_URI=https://oauth2.googleapis.com/token
-FIREBASE_AUTH_PROVIDER_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
-FIREBASE_CLIENT_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/your-client-email
-FIREBASE_UNIVERSE_DOMAIN=your-project-id.firebaseapp.com
-STORAGE_BUCKETNAME_URL=your-storage-bucket-url
-REALTIME_DATABASE_URL=your-database-url
+FIREBASE_AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
+FIREBASE_CLIENT_X509_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xyz12%40example-project-1234.iam.gserviceaccount.com
+FIREBASE_UNIVERSE_DOMAIN=googleapis.com
+STORAGE_BUCKETNAME_URL=example-project-1234.appspot.com
+REALTIME_DATABASE_URL=https://example-project-1234.firebaseio.com
+
 ```
 
 ### Contribution
