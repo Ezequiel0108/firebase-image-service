@@ -1,66 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Firebase Image Service
 
-## About Laravel
+This repository contains a Laravel microservice designed to interact with Firebase for managing image operations. The service provides functionality for uploading, retrieving, and deleting images using Firebase Storage.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Installation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Install the Laravel Firebase Package**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+   To use Firebase with Laravel, you'll need to install the `kreait/laravel-firebase` package. Run the following command:
 
-## Learning Laravel
+   ```bash
+   composer require kreait/laravel-firebase
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Set Up Firebase**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+   Follow these steps to configure Firebase for your Laravel application:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   - **Create a Firebase Project**
+     1. Go to the [Firebase Console](https://console.firebase.google.com/).
+     2. Click on "Add project" and follow the prompts to create a new project.
 
-## Laravel Sponsors
+   - **Add Firebase to Your App**
+     1. After creating the project, click on the gear icon next to "Project Overview" to access project settings.
+     2. Under "Your apps," click on the icon to add Firebase to your app (Web, iOS, or Android).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   - **Generate a Service Account Key**
+     1. In the Firebase Console, go to "Project Settings."
+     2. Click on the "Service accounts" tab.
+     3. Click "Generate new private key" and download the JSON file.
+     4. Copy the contents of this JSON file and configure them in your `.env` file in Laravel with the appropriate environment variables.
 
-### Premium Partners
+   - **Set Up Firebase Storage**
+     1. In the Firebase Console, go to the "Storage" section and click "Get started."
+     2. Set up Firebase Storage rules. Update the rules to allow read and write operations:
+        ```json
+        allow read, write: if request.auth == null;
+        ```
+     3. Copy the storage URL and set it in your `.env` file.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   - **Set Up Firebase Realtime Database**
+     1. In the Firebase Console, go to the "Realtime Database" section and click "Create Database."
+     2. Set up Realtime Database rules. Update the rules to allow read and write operations:
+        ```json
+        {
+          "rules": {
+            ".read": "auth != null",
+            ".write": "auth != null"
+          }
+        }
+        ```
+     3. Copy the database URL, remove the `gs://` prefix, and set it in your `.env` file.
 
-## Contributing
+### Configuration
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Update your `.env` file with the Firebase configuration settings:
 
-## Code of Conduct
+```env
+FIREBASE_TYPE=service_account
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY_ID=your-private-key-id
+FIREBASE_PRIVATE_KEY="your-private-key"
+FIREBASE_CLIENT_EMAIL=your-client-email
+FIREBASE_CLIENT_ID=your-client-id
+FIREBASE_AUTH_URI=https://accounts.google.com/o/oauth2/auth
+FIREBASE_TOKEN_URI=https://oauth2.googleapis.com/token
+FIREBASE_AUTH_PROVIDER_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
+FIREBASE_CLIENT_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/your-client-email
+FIREBASE_UNIVERSE_DOMAIN=your-project-id.firebaseapp.com
+STORAGE_BUCKETNAME_URL=your-storage-bucket-url
+REALTIME_DATABASE_URL=your-database-url
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Contribution
 
-## Security Vulnerabilities
+If you wish to contribute to this project, please follow the contribution guidelines provided in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### License
 
-## License
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Contact
+
+For any issues or inquiries, please contact [ezequielta63@gmail.com](mailto:ezequielta63@gmail.com).
+
+---
+
+Asegúrate de reemplazar los valores de ejemplo en la configuración `.env` con los valores reales de tu proyecto Firebase. 
