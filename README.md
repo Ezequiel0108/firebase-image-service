@@ -23,9 +23,9 @@ This repository contains a Laravel microservice designed to interact with Fireba
 
    - **Add Firebase to Your App**
      1. After creating the project, click on the gear icon next to "Project Overview" to access project settings.
-     2. Under "Your apps," click on the icon to add Firebase to your app (Web, iOS, or Android).
 
-   - **Generate a Service Account Key**
+   - **Generate a Service Account Key (In the same window as the previous step, you will do the following):**
+
      1. In the Firebase Console, go to "Project Settings."
      2. Click on the "Service accounts" tab.
      3. Click "Generate new private key" and download the JSON file.
@@ -85,5 +85,3 @@ This project is open-sourced software licensed under the [MIT license](https://o
 For any issues or inquiries, please contact [ezequielta63@gmail.com](mailto:ezequielta63@gmail.com).
 
 ---
-
-Asegúrate de reemplazar los valores de ejemplo en la configuración `.env` con los valores reales de tu proyecto Firebase. 
