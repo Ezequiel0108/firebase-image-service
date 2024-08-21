@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ImageRepository;
-use Illuminate\Http\UploadedFile;
+use Exception;
 
 class ImageService
 {
@@ -14,9 +14,21 @@ class ImageService
         $this->imageRepository = $imageRepository;
     }
 
-    public function uploadImage(UploadedFile $file, $carpetCreate)
+    public function uploadImage($image, $carpetCreate)
     {
+
         // Lógica de negocio para manejar la subida de la imagen
+        try {
+            $imageWithSpaces = uniqid() . '_' . $image->getClientOriginalName();
+            $imageName = str_replace(' ', '', $imageWithSpaces);
+
+            $this->imageRepository->uploadToFirebase($image, $carpetCreate, $imageName);
+
+            return $imageName; 
+        } catch (Exception $e) {
+            throw new Exception('Business logic error while uploading the image: ' . $e->getMessage(), 500);
+        }
+        
     }
 
     public function getImage($imageName, $ruteImageStorage)
